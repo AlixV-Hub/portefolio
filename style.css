@@ -1,0 +1,201 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #ae9cff;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  padding: 0.5em;
+}
+
+h1{
+  font-family: "Walter Turncoat", cursive;
+  font-style: normal;
+  font-size: 2em;
+  font-weight: 700;
+  color: #FBE0C1; /* Couleur beige clair pour contraster avec le fond violet */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  /* margin: 1em; */
+  padding: 1em;
+}
+.portfolio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  gap: 1em; /* Espacement entre les blocs */
+  justify-content: center;
+  padding: 2em;
+}
+
+/* Style des applications */
+.conteneurApi {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: 1em;
+  background: linear-gradient(-240deg, #8468ff 70%, #785bf7 70%);
+  border: 5px solid #FBE0C1;
+  border-radius: 0.4em;
+  box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.5em;
+  word-spacing: 0.4em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Pour que le titre soit positionné par rapport à ce conteneur */
+  padding: 3em 1em 1em; /* Ajout du padding pour faire de la place au titre */
+  line-height: 2em;
+}
+
+.conteneurApi, p {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  word-spacing: 0.4em;
+}
+
+/* Style du titre des applications */
+.titreApplication {
+  font-size: 2em;
+  font-weight: 700;
+  color: #FBE0C1; /* Couleur beige clair pour contraster avec le fond violet */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  position: absolute;
+  top: 0; /* Coller le titre en haut */
+  left: 50%; /* Centrer horizontalement */
+  transform: translateX(-50%); /* Ajuster le centré horizontal */
+  margin: 0; /* Retirer toute marge */
+  padding-top: 1em; /* Espacer un peu du bord supérieur */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombre pour donner du relief */
+  width: 100%;
+}
+
+/* Style du bouton */
+.button {
+  padding: 1em 2em;
+  margin: 1em 2em;;
+  background: linear-gradient(135deg, #8468FF, #785BF7);
+  background-image: url("./Léop.jpg");
+  background-size: cover; /* Ajuste l’image pour qu’elle couvre tout */
+  /* background-position: center; */
+  background-repeat: no-repeat; /* Empêche la répétition */;
+  /* position: absolute; */
+  font-family: "Poppins", sans-serif;
+  color: #8468FF, #785BF7;
+  border: none;
+  border-radius: 0.4em;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  word-spacing: 0.4em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(94, 72, 181, 0.25);
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #785BF7, #8468FF);
+  transform: translateY(-3px); /* Légère élévation au survol */
+  color: #ffffff;
+  box-shadow: 0 6px 10px rgba(94, 72, 181, 0.40)
+}
+
+.button:active {
+  transform: translateY(1px); /* Légère pression au clic */
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(94, 72, 181, 0.25);
+}
+
+.button:focus {
+  outline: none; /* Retire l'effet de focus */
+  box-shadow: 0 0 0 3px rgba(94, 72, 181, 0.25); /* Ombre violette au focus */
+}
+
+#imagePokemon {
+  width: 20em;
+  height: 20em;
+}
+
+
+/* Style pour l'input et son placeholder */
+input {
+  padding: 10px;
+  font-family: 'Poppins', sans-serif; /* Police Poppins */
+  font-size: 16px;
+  border: 1px solid #8468ff;
+  border-radius: 5px;
+  background-color: #FBE0C1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Stylisation du placeholder */
+input::placeholder {
+  color: #8468ff;           /* Couleur douce pour le placeholder */
+  font-style: italic;    /* Style de texte en italique */
+  font-size: 16px;       /* Taille du texte */
+  opacity: 1;            /* Assure que le texte du placeholder est bien opaque */
+}
+
+
+  /* Footer */
+.container {
+  border-radius: 0.4em;
+  width: 35em;
+  height: 15em; 
+  background-image: url("./Léop.jpg");
+  background-size: cover; /* Ajuste l’image pour qu’elle couvre tout */
+  background-position: center; /* Centre l’image */
+  background-repeat: no-repeat; /* Empêche la répétition */;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  padding: 4.5em 1.3em;
+  box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
+}   
+
+.containerGreeting {
+  font-size: 1.3em;
+  width: 25em;
+  height: 10em; 
+  background: linear-gradient(-240deg, #8468ff 70%, #785bf7 70%);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 4.5em 1.3em;
+  border-radius: 0.4em;
+  box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
+}
+.containerGreeting h3 {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  word-spacing: 0.4em;
+}
+
+footer {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Portfolio d'Alix VEYRAT, étudiante en informatique à Nantes."> 
+    <meta name="Keywords" content="Portfolio, Alix VEYRAT, Nantes, informatique, étudiante, remote">
+    
+    <title>Alix VEYRAT - Portfolio - NANTES</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="Goodies - Ok.png" />
+    <script src="script.js" defer></script> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Alix VEYRAT - Home Sweet Home</h1>
+
+    <main>
+        <section class="portfolio">
+            <div class="conteneurApi">
+                <div id="apiMeteo">
+                    <h2 class="titreApplication">J'ai le Sun !</h2>
+                    <p>A vu de nez, il fait à Nantes :</p>
+                    <div id="temperature">Chargement</div>
+                    <p id="texteCoucherSoleil">Le soleil se couche et les loups se réveillent dans :</p>
+                    <div id="coucherSoleil">Chargement</div>
+                </div>
+            </div>
+
+            <div class="conteneurApi">
+                <div id="apiPokemon">
+                    <h2 class="titreApplication">attraper les tous !</h2>
+                    <div id="image-wrapper"></div>
+                    <img id="imagePokemon">
+                    <div id="header">
+                        <div id="number"></div>
+                        <div id="name"></div>
+                    </div>
+                    <button class="button" id="buttonPoke">Quel pokémon vas-tu attraper ?</button>
+                </div>
+            </div>
+
+            <div class="conteneurApi">
+                <h2 class="titreApplication"> Station Météo !</h2>
+                <p>Around The World !</p>
+                <p>Let's go !</p>
+                <div class="weather-container">
+                    <div class="city-search">
+                        <input type="text" id="cityInput" placeholder="Punta Cana">
+                        <button class="button">OK</button>
+                    </div>
+                    <h3 id="city">Chargement...</h3>
+                    <div id="gps"></div>
+                    <div id="temp">-°C</div>
+                    <div id="details">Mise à jour en cours...</div>
+                </div>
+            </div>
+
+            <!-- <div class="conteneurApi">
+                <h2 class="titreApplication">Prochaine application !</h2>
+                <p>Ajoute ici une nouvelle application</p>
+            </div> -->
+        </section>
+    </main>
+
+<footer>
+    <div class ="container"> 
+    <div class ="containerGreeting" id ="containerGreeting">demo txt</div>
+    </div>  
+</footer>
+</body>
+</html>
