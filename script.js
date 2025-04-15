@@ -23,6 +23,37 @@ const COORDINATESDISPLAY = document.querySelector("#gps");
 const TEMPERATUREDISPLAY = document.querySelector("#temp");
 const DETAILSDISPLAY = document.querySelector("#details");
 
+// Variables Sport Timer 
+// Initialisation des variables (avec récupération depuis le localStorage si dispo)
+let workMinutes = parseFloat(localStorage.getItem("workMinutes")) || 25;
+let shortBreakMinutes = parseFloat(localStorage.getItem("shortBreakMinutes")) || 5;
+let longBreakMinutes = parseFloat(localStorage.getItem("longBreakMinutes")) || 15;
+let autoPlay = localStorage.getItem("autoPlay") === 'true';
+let autoPlayLimit = parseInt(localStorage.getItem("autoPlayLimit")) || 4;
+
+let WORK_TIME = Math.round(workMinutes * 60);
+let SHORT_BREAK = Math.round(shortBreakMinutes * 60);
+let LONG_BREAK = Math.round(longBreakMinutes * 60);
+
+let timeLeft = WORK_TIME;
+let timer = null;
+let isRunning = false;
+let mode = "work";
+let sessions = parseInt(localStorage.getItem("sessions")) || 0;
+let sessionCounter = 0; // compteur pour le auto-play
+
+// Sélection des éléments DOM
+const timerDisplay = document.querySelector("#timerDisplay");
+const statusDisplay = document.querySelector("#status");
+const startStopBtn = document.querySelector("#startStopBtn");
+const sessionsDisplay = document.querySelector("#sessions");
+const workInput = document.querySelector("#workInput");
+const shortBreakInput = document.querySelector("#shortBreakInput");
+const longBreakInput = document.querySelector("#longBreakInput");
+const autoPlayToggle = document.querySelector("#autoPlayToggle");
+const autoPlayLimitInput = document.querySelector("#autoPlayLimit");
+const saveConfigBtn = document.querySelector("#saveConfigBtn");
+const beep = document.querySelector("#beep");
 
 //Requête API Météo
 async function appelApiMeteo() {
@@ -192,3 +223,230 @@ const city = CITYINPUT.value;
 // 2. Mettre à jour l'affichage avec les informations météorologiques de la ville
 updateWeather(city);
 });
+
+// Sport Timer 
+
+function updateDisplay() {
+  const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+  const seconds = (timeLeft % 60).toString().padStart(2, '0');
+  timerDisplay.textContent = `${minutes}:${seconds}`;
+  sessionsDisplay.textContent = sessions;
+  statusDisplay.textContent = mode === 'work' ? 'Travail' : (mode === 'short_break' ? 'Pause courte' : 'Pause longue');
+}
+
+function switchMode() {
+  beep.currentTime = 0;
+  beep.play().catch(() => {
+    console.warn('Son bloqué par le navigateur — l’utilisateur doit interagir avec la page.');
+  });
+
+  if (mode === 'work') {
+    sessions++;
+    sessionCounter++;
+    localStorage.setItem('sessions', sessions);
+    mode = (sessions % 4 === 0) ? 'long_break' : 'short_break';
+    timeLeft = (mode === 'long_break') ? LONG_BREAK : SHORT_BREAK;
+  } else {
+    mode = 'work';
+    timeLeft = WORK_TIME;
+  }
+  updateDisplay();
+}
+
+function tick() {
+  if (timeLeft > 0) {
+    timeLeft--;
+    updateDisplay();
+  } else {
+    clearInterval(timer);
+    isRunning = false;
+    startStopBtn.textContent = 'Démarrer';
+    switchMode();
+
+    if (autoPlay && sessionCounter < autoPlayLimit) {
+      timer = setInterval(tick, 1000);
+      isRunning = true;
+      startStopBtn.textContent = 'Pause';
+    }
+  }
+}
+
+function startStopTimer() {
+  if (isRunning) {
+    clearInterval(timer);
+    isRunning = false;
+    startStopBtn.textContent = 'Démarrer';
+  } else {
+    timer = setInterval(tick, 1000);
+    isRunning = true;
+    startStopBtn.textContent = 'Pause';
+  }
+}
+
+function saveConfig() {
+  workMinutes = parseFloat(workInput.value);
+  shortBreakMinutes = parseFloat(shortBreakInput.value);
+  longBreakMinutes = parseFloat(longBreakInput.value);
+  autoPlay = autoPlayToggle.checked;
+  autoPlayLimit = parseInt(autoPlayLimitInput.value);
+
+  localStorage.setItem('workMinutes', workMinutes);
+  localStorage.setItem('shortBreakMinutes', shortBreakMinutes);
+  localStorage.setItem('longBreakMinutes', longBreakMinutes);
+  localStorage.setItem('autoPlay', autoPlay);
+  localStorage.setItem('autoPlayLimit', autoPlayLimit);
+
+  WORK_TIME = Math.round(workMinutes * 60);
+  SHORT_BREAK = Math.round(shortBreakMinutes * 60);
+  LONG_BREAK = Math.round(longBreakMinutes * 60);
+
+  if (!isRunning) {
+    timeLeft = (mode === 'work') ? WORK_TIME : (mode === 'short_break' ? SHORT_BREAK : LONG_BREAK);
+    updateDisplay();
+  }
+}
+
+startStopBtn.addEventListener('click', startStopTimer);
+saveConfigBtn.addEventListener('click', saveConfig);
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('timeLeft', timeLeft);
+  localStorage.setItem('mode', mode);
+});
+
+window.addEventListener('load', () => {
+  const savedTime = parseInt(localStorage.getItem('timeLeft'));
+  const savedMode = localStorage.getItem('mode');
+  if (!isNaN(savedTime)) timeLeft = savedTime;
+  if (savedMode) mode = savedMode;
+
+  workInput.value = workMinutes;
+  shortBreakInput.value = shortBreakMinutes;
+  longBreakInput.value = longBreakMinutes;
+  autoPlayToggle.checked = autoPlay;
+  autoPlayLimitInput.value = autoPlayLimit;
+
+  updateDisplay();
+});
+
+// TODOLIST
+
+const newTaskInput = document.querySelector("#new-task input");
+const tasksDiv = document.querySelector("#tasks");
+const clearAllBtn = document.querySelector("#clear-all"); // bouton à ajouter dans ton HTML
+let updateNote = "";
+let count;
+
+window.onload = () => {
+  updateNote = "";
+  count = Object.keys(localStorage).length;
+  displayTasks();
+};
+
+const displayTasks = () => {
+  const keys = Object.keys(localStorage);
+  if (keys.length > 0) {
+    tasksDiv.style.display = "inline-block";
+  } else {
+    tasksDiv.style.display = "none";
+  }
+
+  tasksDiv.innerHTML = "";
+
+  const sorted = keys.sort((a, b) => parseInt(a) - parseInt(b));
+
+  for (let key of sorted) {
+    let value = localStorage.getItem(key);
+    let taskInnerDiv = document.createElement("div");
+    taskInnerDiv.classList.add("task");
+    taskInnerDiv.setAttribute("id", key);
+
+    const span = document.createElement("span");
+    span.id = "taskname";
+    span.textContent = key.split("_").slice(1).join("_");
+    taskInnerDiv.appendChild(span);
+
+    let editButton = document.createElement("button");
+    editButton.classList.add("edit");
+    editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+    if (!JSON.parse(value)) {
+      editButton.style.visibility = "visible";
+    } else {
+      editButton.style.visibility = "hidden";
+      taskInnerDiv.classList.add("completed");
+    }
+    taskInnerDiv.appendChild(editButton);
+
+    let deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    taskInnerDiv.appendChild(deleteButton);
+
+    tasksDiv.appendChild(taskInnerDiv);
+
+    // événements à l’intérieur de la boucle pour garder le contexte
+    taskInnerDiv.addEventListener("click", () => {
+      const idParts = key.split("_");
+      const index = idParts[0];
+      const value = idParts.slice(1).join("_");
+      const isCompleted = taskInnerDiv.classList.contains("completed");
+      updateStorage(index, value, !isCompleted);
+    });
+
+    editButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      disableButtons(true);
+      newTaskInput.value = span.textContent;
+      updateNote = key;
+      taskInnerDiv.remove();
+    });
+
+    deleteButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      removeTask(key);
+    });
+  }
+};
+
+const disableButtons = (bool) => {
+  const editButtons = document.getElementsByClassName("edit");
+  Array.from(editButtons).forEach((btn) => (btn.disabled = bool));
+};
+
+const removeTask = (taskKey) => {
+  localStorage.removeItem(taskKey);
+  displayTasks();
+};
+
+const updateStorage = (index, taskValue, completed) => {
+  localStorage.setItem(`${index}_${taskValue}`, completed);
+  displayTasks();
+};
+
+document.querySelector("#push").addEventListener("click", () => {
+  disableButtons(false);
+  const task = newTaskInput.value.trim();
+  if (task.length === 0) return alert("Veuillez entrer une tâche");
+
+  if (updateNote === "") {
+    updateStorage(count, task, false);
+    count++;
+  } else {
+    let existingCount = updateNote.split("_")[0];
+    removeTask(updateNote);
+    updateStorage(existingCount, task, false);
+    updateNote = "";
+  }
+  newTaskInput.value = "";
+});
+
+// Bouton pour vider toute la liste
+if (clearAllBtn) {
+  clearAllBtn.addEventListener("click", () => {
+    if (confirm("Tout supprimer ?")) {
+      localStorage.clear();
+      count = 0;
+      displayTasks();
+    }
+  });
+}

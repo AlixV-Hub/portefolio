@@ -12,8 +12,9 @@
     <script src="script.js" defer></script> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
     <h1>Alix VEYRAT - Home Sweet Home</h1>
@@ -59,7 +60,39 @@
                 </div>
             </div>
 
-            <!-- <div class="conteneurApi">
+            <div class="conteneurApi">
+                <h2 class="titreApplication"> Sport timer !</h2>
+                <div class="config">
+                    Travail (min): <input type="number" id="workInput" value="25" min="0.1" step="0.1"> 
+                    Pause courte (min): <input type="number" id="shortBreakInput" value="5" min="0.1" step="0.1"> 
+                    Pause longue (min): <input type="number" id="longBreakInput" value="15" min="0.1" step="0.1">
+                    <br>
+                    <label><input type="checkbox" id="autoPlayToggle"> Auto-play</label>
+                    Répétitions : <input type="number" id="autoPlayLimit" value="4" min="1">
+                    <br>
+                    <button class="button" id="saveConfigBtn">Enregistrer</button>
+                </div>
+                
+                <div class="timer" id="timerDisplay">25:00</div>
+                <div class="status" id="status">Travail</div>
+                <button class="button" id="startStopBtn">Démarrer</button>
+                <div>Sessions complétées : <span id="sessions">0</span></div>
+                
+                <audio id="beep" src="COMTelph_Tonalite appel finit (ID 2645)_LS.mp3" preload="auto"></audio>
+            </div>
+
+            <div class="conteneurApi">
+                <h2 class="titreApplication">To Do !</h2>
+                <div id="new-task">
+                    <input type="text" placeholder="Encore quelque chose à faire...." />
+                    <button class ="button" id="push">AJOUTER</button>
+                </div>
+                <div id="tasks"></div>
+                <button class = "button" id="clear-all">Tout supprimer</button>
+            </div>
+           
+
+             <!-- <div class="conteneurApi">
                 <h2 class="titreApplication">Prochaine application !</h2>
                 <p>Ajoute ici une nouvelle application</p>
             </div> -->

@@ -69,7 +69,7 @@ h1{
 
 /* Style du titre des applications */
 .titreApplication {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 700;
   color: #FBE0C1; /* Couleur beige clair pour contraster avec le fond violet */
   text-transform: uppercase;
@@ -81,6 +81,7 @@ h1{
   transform: translateX(-50%); /* Ajuster le centré horizontal */
   margin: 0; /* Retirer toute marge */
   padding-top: 1em; /* Espacer un peu du bord supérieur */
+  padding-bottom: 1em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombre pour donner du relief */
   width: 100%;
 }
@@ -147,51 +148,121 @@ input {
 
 /* Stylisation du placeholder */
 input::placeholder {
-  color: #8468ff;           /* Couleur douce pour le placeholder */
-  font-style: italic;    /* Style de texte en italique */
-  font-size: 16px;       /* Taille du texte */
-  opacity: 1;            /* Assure que le texte du placeholder est bien opaque */
+  color: #8468ff;        
+  font-style: italic;    
+  font-size: 16px;       
+  opacity: 1;            
 }
 
+
+/* Style TODO */
+#new-task {
+  position: relative;
+  padding: 1.8em 1.25em;
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  gap: 1em;
+}
+#new-task input {
+  color: #8468ff;        
+  font-style: italic;    
+  font-size: 16px;       
+  opacity: 1; 
+  border: none;
+  padding: 0.8em 0.5em;
+}
+#new-task input:focus {
+  outline: none;
+  border-color: #0b87ff;
+}
+/* #new-task button {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  background-color: #0b87ff;
+  color: #ffffff;
+  outline: none;
+  border: none;
+  border-radius: 0.3em;
+  cursor: pointer;
+} */
+#tasks {
+  position: relative;
+  padding: 1.8em 1.25em;
+  margin-top: 3.8em;
+  width: 100%;
+}
+.task {
+  padding: 0.3em 0.6em;
+  margin-top: 0.6em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+/* .task span {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+} */
+.task button {
+  color: #785bf7;
+  padding: 0.8em 0;
+  width: 2.8em;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.delete {
+  background-color: #FBE0C1;
+}
+.edit {
+  background-color: #FBE0C1;
+  margin-left: auto;
+  margin-right: 3em;
+}
+.completed {
+  text-decoration: line-through;
+}
 
   /* Footer */
-.container {
-  border-radius: 0.4em;
-  width: 35em;
-  height: 15em; 
-  background-image: url("./Léop.jpg");
-  background-size: cover; /* Ajuste l’image pour qu’elle couvre tout */
-  background-position: center; /* Centre l’image */
-  background-repeat: no-repeat; /* Empêche la répétition */;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  padding: 4.5em 1.3em;
-  box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
-}   
-
-.containerGreeting {
-  font-size: 1.3em;
-  width: 25em;
-  height: 10em; 
-  background: linear-gradient(-240deg, #8468ff 70%, #785bf7 70%);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  padding: 4.5em 1.3em;
-  border-radius: 0.4em;
-  box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
-}
-.containerGreeting h3 {
-  font-family: "Poppins", sans-serif;
-  text-align: center;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  word-spacing: 0.4em;
-}
+  .container {
+    border-radius: 0.4em;
+    width: 35em;
+    height: 15em; 
+    background-image: url("./Léop.jpg");
+    background-size: cover; /* Ajuste l’image pour qu’elle couvre tout */
+    background-position: center; /* Centre l’image */
+    background-repeat: no-repeat; /* Empêche la répétition */;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    padding: 4.5em 1.3em;
+    box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
+  }   
+  
+  .containerGreeting {
+    font-size: 1.3em;
+    width: 25em;
+    height: 10em; 
+    background: linear-gradient(-240deg, #8468ff 70%, #785bf7 70%);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 4.5em 1.3em;
+    border-radius: 0.4em;
+    box-shadow: 0 1.3em 1.8em rgba(94, 72, 181, 0.25);
+  }
+  .containerGreeting h3 {
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    word-spacing: 0.4em;
+  }
 
 footer {
   width: 100%;
